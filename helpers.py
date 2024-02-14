@@ -1,32 +1,36 @@
-################################################################################
-# helpers.py
-# Commonly used functions in program that do not belong to a single script.
-# Author: John E. Parker
-################################################################################
+"""
+File: helpers.py
+Author: John E. Parker
+Date: 14 February 2024
+
+Description: Miscellaneous helper scripts.
+"""
 
 # import python modules
-import os, sys, string
+import os, string
 import numpy as np
-
-"""
-def plot_bracket(ax, x1, x2, y1, y2, text, color="k", lw=0.5):
-    ax.hlines(y2, x1, x2, color=color, lw=lw)
-    ax.vlines([x1, x2], y1, y2, color=color, lw=lw)
-    ax.annotate(
-        text,
-        xycoords="data",
-        xy=((x1 + x2) / 2, y2 + (ax.get_ylim()[1] - ax.get_ylim()[0]) * 0.01),
-    )
-"""
 
 
 def run_cmd(str):
+    """
+    Prints then runs command on terminal.
+
+    str\t:\tcommand to be run on terminal
+    """
     print(str)
     os.system(str)
     print()
 
 
 def makeNice(axes, labelsize=8):
+    """
+    Removes left and bottom spines, adjusts labels.
+
+    axes\t:\tfigure axes to be adjusted
+    labelsize\t:\tfontsize for tick labels (default = 8)
+    """
+
+    # check is list of axes or not, then remove spines and adjust labels
     if type(axes) == list:
         for ax in axes:
             for i in ["left", "right", "top", "bottom"]:
@@ -47,6 +51,15 @@ def makeNice(axes, labelsize=8):
 
 
 def add_fig_labels(axes, start_at=0, fontsize=12):
+    """
+    Adds alphabetical figure labels to axes.
+
+    axes\t:\tfigure axes to be adjusted
+    start_at\t:\tindex to start alpabetical count (default = 0)
+    fontsize\t:\tfontsize for figure labels (default = 12)
+    """
+
+    # Iterate through axes and add alphabetical label
     labels = string.ascii_uppercase
     for i in range(len(axes)):
         axes[i].text(
@@ -61,16 +74,27 @@ def add_fig_labels(axes, start_at=0, fontsize=12):
 
 
 def match_axis(axes, type="both"):
+    """
+    Matches horizontal and/or vertical axis limits list of axes.
+
+    axes\t:\tlist of axes to match axis
+    type\t:\tlabel to specify which axis to match (defaul = "both")
+    """
+
+    # Match only x-axis
     if type == "x":
         min = np.min([ax.get_xlim()[0] for ax in axes])
         max = np.max([ax.get_xlim()[1] for ax in axes])
         for ax in axes:
             ax.set_xlim([min, max])
+
+    # Match only y-axis
     elif type == "y":
         min = np.min([ax.get_ylim()[0] for ax in axes])
         max = np.max([ax.get_ylim()[1] for ax in axes])
         for ax in axes:
             ax.set_ylim([min, max])
+    # Match x and y axis
     else:
         match_axis(axes, type="x")
         match_axis(axes, type="y")
