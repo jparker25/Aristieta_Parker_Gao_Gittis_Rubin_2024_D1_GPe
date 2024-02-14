@@ -111,6 +111,7 @@ def generate_figure(data_short, save_dir):
         ylabel="Hz",
         title="Firing Rate",
     )
+
     category_shift_single(
         data_short[data_short["neural_response"] != "complete inhibition"],
         "baseline_cv",
