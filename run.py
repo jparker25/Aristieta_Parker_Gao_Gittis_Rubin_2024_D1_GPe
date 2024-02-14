@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 import sys
 from scipy import stats
+import argparse
 
 # import user modules
 from helpers import *
@@ -130,25 +131,35 @@ gpe_processed_data = "./data/gpe_pv/processed_data"
     gpe_dd,
 ) = get_data(d1_processed_data, gpe_processed_data, zscore=3)
 
-# Set to true to print out all stats reported in paper
-run_stats = False
+# Allow for command line input for figure generation and stats results
+parser = argparse.ArgumentParser(description="Reproduce figures and stats.")
+parser.add_argument(
+    "--figures",
+    type=int,
+    nargs="+",
+    help="List of figure numbers to generate",
+    default=[],
+)
+parser.add_argument(
+    "--stats", help="output stats to statistics.txt", action="store_true"
+)
+args = parser.parse_args()
 
-# List to hold figures to generate
-gen_figs = [1]
+
 # If true, generate stats reported in paper
-if run_stats:
+if args.stats:
     run_statistics.print_statistics(d1_naive, gpe_naive, d1_dd, gpe_dd, decimals=4)
 
-# Generate figures if fig number is in array gen_figs
-if 1 in gen_figs:
+# Generate figures if fig number is in array figures
+if 1 in args.figures:
     figure_1_naive_d1.generate_figure(d1_naive, save_dir=save_dir)
-if 2 in gen_figs:
+if 2 in args.figures:
     figure_2_naive_gpe.generate_figure(gpe_naive, d1_naive, save_dir=save_dir)
-if 3 in gen_figs:
+if 3 in args.figures:
     figure_3_dd_d1.generate_figure(d1_dd, d1_naive, save_dir=save_dir)
-if 5 in gen_figs:
+if 5 in args.figures:
     figure_5_dd_gpe.generate_figure(gpe_dd, gpe_naive, save_dir=save_dir)
-if 7 in gen_figs:
+if 7 in args.figures:
     figure_7_comparisons.generate_figure(
         d1_naive,
         d1_dd,

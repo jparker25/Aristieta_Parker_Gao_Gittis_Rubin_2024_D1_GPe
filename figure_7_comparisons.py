@@ -45,6 +45,10 @@ def generate_figure(
     gpe_dd_semcolor = "#6633b3"
 
     # Generate figure
+    fig, ax = plt.subplots(2, 1, figsize=(4, 3), dpi=300, tight_layout=True)
+    axes = [ax[i] for i in range(2)]
+
+    """
     fig = plt.figure(figsize=(6, 3), dpi=300, tight_layout=True)
     gs = gridspec.GridSpec(2, 2, width_ratios=[3, 1])
     axes = [
@@ -53,6 +57,7 @@ def generate_figure(
         fig.add_subplot(gs[1, 0]),
         fig.add_subplot(gs[1, 1]),
     ]
+    """
 
     # plot normalized PSTH relative to 1s of pre-stim firing for naive data
     psth_norm_compare(
@@ -75,6 +80,7 @@ def generate_figure(
         linestyle="solid",
     )
 
+    """
     # Plot naive modulation factors for FR and compare
     category_change_MF(
         d1_naive_short,
@@ -90,12 +96,13 @@ def generate_figure(
         tick2="GPe-ctl",
         ylims=[-1, 0.3],
     )
+    """
 
     # plot normalized PSTH relative to 1s of pre-stim firing for dd data
     psth_norm_compare(
         d1_dd_short,
         gpe_dd_short,
-        axes[2],
+        axes[1],  # axes[2],
         bw=0.05,
         baseline=2,
         stim=1,
@@ -112,6 +119,7 @@ def generate_figure(
         linestyle="solid",
     )
 
+    """
     # Plot dd modulation factors for FR and compare
     category_change_MF(
         d1_dd_short,
@@ -127,6 +135,7 @@ def generate_figure(
         tick2="GPe-DD",
         ylims=[-1, 0.3],
     )
+    """
 
     # Label figure and clean up
     add_fig_labels(axes)
