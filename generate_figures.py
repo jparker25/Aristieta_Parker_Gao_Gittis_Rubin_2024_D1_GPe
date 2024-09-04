@@ -658,7 +658,7 @@ def category_shift_single(
         [np.mean(data1[category1]), np.mean(data1[category2])],
         color=color1,
         zorder=10,
-        s=20,
+        s=5,
     )
     axes.plot(
         [0, 1],
@@ -671,7 +671,7 @@ def category_shift_single(
     axes.errorbar(
         0,
         np.mean(data1[category1]),
-        yerr=np.std(data1[category1]),
+        yerr=stats.sem(data1[category1]),
         color=color1,
         zorder=10,
         capsize=2,
@@ -679,7 +679,7 @@ def category_shift_single(
     axes.errorbar(
         1,
         np.mean(data1[category2]),
-        yerr=np.std(data1[category2]),
+        yerr=stats.sem(data1[category2]),
         color=color1,
         zorder=10,
         capsize=2,
@@ -794,7 +794,7 @@ def category_change_MF(
     plot, caps, bars = axes.errorbar(
         np.mean(x1),
         np.mean(y1),
-        yerr=np.std(y1),
+        yerr=stats.sem(y1),
         lolims=True if np.mean(y1) > 0 else False,
         uplims=True if np.mean(y1) < 0 else False,
         color=color1,
@@ -815,7 +815,7 @@ def category_change_MF(
     plot, caps, bars = axes.errorbar(
         np.mean(x2),
         np.mean(y2),
-        yerr=np.std(y2),
+        yerr=stats.sem(y2),
         lolims=True if np.mean(y2) > 0 else False,
         uplims=True if np.mean(y2) < 0 else False,
         color=color2,
