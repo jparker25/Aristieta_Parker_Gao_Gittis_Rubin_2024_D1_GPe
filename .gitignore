@@ -1,7 +1,8 @@
 # User added
 .DS_Store
 figures/*
-data/*
+data/d1_msns/processed_data/*
+data/gpe_pv/processed_data/*
 statistics.txt
 
 # Byte-compiled / optimized / DLL files
